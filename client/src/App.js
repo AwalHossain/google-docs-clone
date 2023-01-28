@@ -1,9 +1,10 @@
 import './App.css';
-import TextEditor from './TextEditor';
+import UseRef from './UseRef';
 
 function App() {
   return (
-      <TextEditor />
+      // <TextEditor />
+      <UseRef />
 
   );
 }
