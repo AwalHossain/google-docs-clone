@@ -38,6 +38,21 @@ useEffect(()=>{
 useEffect(()=>{
   if(socket == null || quill == null) return;
   
+    const handler = (delta)=>{
+      quill.updateContents(delta);
+    }
+    socket.on("receive-changes", handler);
+    
+    return ()=>{
+      socket.off('receive-change', handler)
+    }
+},[socket, quill])
+
+
+
+useEffect(()=>{
+  if(socket == null || quill == null) return;
+  
     const handler = (delta, oldDelta, source)=>{
       socket.emit("send-changes", "delta");
       if(source !== 'user'){
