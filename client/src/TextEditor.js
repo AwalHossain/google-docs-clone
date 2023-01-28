@@ -13,11 +13,9 @@ export default function TextEditor() {
       wrapper.append(editor);
         new Quill(editor, {theme: "snow"})
 
-        // return ()=>{
-        //   wrapperRef.innerHTML = "";
-        // }
+      
     },[])
   return (
-    <div id="container" ref={wrapperRef}></div>
+    <div className="container" ref={wrapperRef}></div>
   )
 }

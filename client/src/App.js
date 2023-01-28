@@ -1,4 +1,5 @@
-import './App.css';
+
+import './style.css';
 import TextEditor from './TextEditor';
 
 function App() {
