@@ -3,7 +3,6 @@ import 'quill/dist/quill.snow.css';
 import React, { useCallback, useEffect, useState } from 'react';
 import io from 'socket.io-client';
 
-
 const TOOLBAR_OPTIONS = [
   [{ header: [1, 2, 3, 4, 5, 6, false] }],
   [{ font: [] }],
@@ -19,68 +18,35 @@ const TOOLBAR_OPTIONS = [
 
 
 export default function TextEditor() {
-  // const wrapperRef = useRef();
-  const [socket, setSocket] = useState();
-  const [quill, setQuill] = useState();
+
+  let [quill, setQuill]  = useState()
+  let [socket, setSocket]  = useState()
 
 
-useEffect(()=>{
-  const s = io("http://localhost:3001/");
+  useEffect(()=>{
+    let s = io("http://localhost:3001")
+    setSocket(s);
 
-  setSocket(s);
-
-  return ()=>{
-    s.disconnect()
-  }
-},[]);
-
-
-useEffect(()=>{
-  if(socket == null || quill == null) return;
-  
-    const handler = (delta)=>{
-      quill.updateContents(delta);
-    }
-    socket.on("receive-changes", handler);
-    
     return ()=>{
-      socket.off('receive-change', handler)
+      s.disconnect();
     }
-},[socket, quill])
+  },[])
 
-
-
-useEffect(()=>{
-  if(socket == null || quill == null) return;
   
-    const handler = (delta, oldDelta, source)=>{
-      socket.emit("send-changes", "delta");
-      if(source !== 'user'){
-        return
-      }
 
-      socket.emit("send-changes", delta);
-    }
-    quill.on('text-change', handler )
-    
-    return ()=>{
-      quill.off('text-change', handler)
-    }
-},[socket, quill])
-
- const wrapperRef =   useCallback((wrapper)=>{
-  if(wrapper == null) return
-    wrapper.innerHTML = '';
-      const editor = document.createElement('div');
-      wrapper.append(editor);
-     const q =   new Quill(editor, {
-          theme: "snow", 
-        modules: {toolbar: TOOLBAR_OPTIONS}
+  const wrapperRef = useCallback((wrapper)=>{
+      if(wrapper == null) return;
+      wrapper.innerHTML = "";
+    let editor = document.createElement("div");
+    wrapper.append(editor);
+      let q = new Quill(editor, {
+        theme: 'snow',
+        modules:{toolbar: TOOLBAR_OPTIONS}
       })
 
-      setQuill(q);
-      
-    },[])
+      setQuill(q)
+
+  },[]);
   return (
     <div className="container" ref={wrapperRef}></div>
   )
