@@ -7,10 +7,16 @@ const io = require('socket.io')(3001,{
 
 
 io.on("connection", (socket)=>{
-
-    socket.on("send-changes", (delta)=>{
-        socket.broadcast.emit("receive-changes", delta);
+    let data = "";
+    socket.on('get-document', documentId =>{
+        socket.join(documentId);
+        socket.emit("load-document", data);
+        socket.on("send-changes", (delta)=>{
+            socket.broadcast.to(documentId).emit("receive-changes", delta);
+        })
     })
+
+
 
     console.log("connected");
 })
