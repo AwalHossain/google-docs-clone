@@ -28,13 +28,26 @@ export default function TextEditor() {
 
 
   useEffect(()=>{
-    let s = io("http://localhost:3001")
+    let s = io("https://docs-server-gisiaspfk-awalho.vercel.app")
     setSocket(s);
 
     return ()=>{
-      s.disconnect();
+      s.close();
     }
   },[]);
+
+
+  // useEffect(() => {
+  //   socket = new WebSocket("");
+
+
+  //   return () => {
+  //       if (socket.readyState === 1) { // <-- This is important
+  //           socket.close();
+  //       }
+  //   };
+  // })
+
 
   useEffect(()=>{
     if(socket == null || quill == null) return;

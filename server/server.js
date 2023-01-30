@@ -14,9 +14,22 @@ const Document = require("./Document");
 
 
 
-mongoose.connect("mongodb+srv://documents:BAQTFVLBcI896jbe@cluster0.33slg.mongodb.net/?retryWrites=true&w=majority");
+// mongoose.connect("mongodb+srv://documents:BAQTFVLBcI896jbe@cluster0.33slg.mongodb.net/?retryWrites=true&w=majority");
 
 
+const connectDb = async () => {
+    try {
+        await mongoose.connect("mongodb+srv://documents:BAQTFVLBcI896jbe@cluster0.33slg.mongodb.net/?retryWrites=true&w=majority", {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        console.log('database connected');
+    } catch (err) {
+        console.log('Database error', err);
+    }
+};
+
+connectDb();
 
 // Socket
 const http = require('http').createServer(app);
