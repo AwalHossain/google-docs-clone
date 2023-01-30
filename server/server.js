@@ -1,3 +1,17 @@
+const mongoose = require('mongoose');
+const Document = require("./Document");
+
+
+
+mongoose.connect("mongodb+srv://<username>:<password>@cluster0.33slg.mongodb.net/?retryWrites=true&w=majority",{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  });
+
+
+
 const io = require('socket.io')(3001,{
     cors:{
         origin: "*",
