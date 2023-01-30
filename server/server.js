@@ -3,12 +3,7 @@ const Document = require("./Document");
 
 
 
-mongoose.connect("mongodb+srv://<username>:<password>@cluster0.33slg.mongodb.net/?retryWrites=true&w=majority",{
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-  });
+mongoose.connect("mongodb+srv://documents:BAQTFVLBcI896jbe@cluster0.33slg.mongodb.net/?retryWrites=true&w=majority");
 
 
 
